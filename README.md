@@ -69,7 +69,7 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-001 : Given a valid consumer ID and restaurant ID
 | Scenario            | Given a valid consumer ID and restaurant ID  |
 |---------------------|---------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Semua Microservice beroperasi |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order |
 | Test Data          | json<br> {<br>   "consumerId": 1,<br>   "deliveryAddress": {<br>     "city": "Cimahi",<br>     "state": "Indonesia",<br>     "street1": "jln Cihanjuang Blok A",<br>     "street2": "jln Cihanjuang Blok B",<br>     "zip": "55578"<br>   },<br>   "deliveryTime": "2024-04-05T12:30:09.913Z",<br>   "lineItems": [<br>     {<br>       "menuItemId": "F01",<br>       "quantity": 1<br>     }<br>   ],<br>   "restaurantId": 1<br> } |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br> Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out.<br> Tuliskan JSON di Test Data untuk membuat pesanan.<br> Klik tombol "Execute" untuk mengirimkan request ke server. |
 | Expected Result    | Consumer berhasil melakukan pemesanan, detail pesanan terkait dengan id consumer dan id restaurant. |
@@ -81,7 +81,7 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-002 : Given invalid consumer id
 | Scenario            | Given invalid consumer id                                                                                                    |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Semua Microservice beroperasi                                                           |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order |
 | Test Data          | json <br> {<br>   "consumerId": 5,<br>   "deliveryAddress": {<br>     "city": "Cimahi",<br>     "state": "Indonesia",<br>     "street1": "jln Cihanjuang Blok A",<br>     "street2": "jln Cihanjuang Blok B",<br>     "zip": "55578"<br>   },<br>   "deliveryTime": "2024-04-05T12:30:09.913Z",<br>   "lineItems": [<br>     {<br>       "menuItemId": "F01",<br>       "quantity": 1<br>     }<br>   ],<br>   "restaurantId": 1<br> } |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html <br> Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out. <br> Tuliskan JSON di Test Data untuk membuat pesanan. <br> Klik tombol "Execute" untuk mengirimkan request ke server. |
 | Expected Result    | Proses untuk membuat pesanan gagal. Sistem akan memberikan respons error yang menunjukkan bahwa consumer id yang diberikan invalid atau not found. Kemudian, tidak ada pesanan yang dibuat dan tersimpan pada sistem. |
@@ -93,7 +93,7 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-003 : Given invalid restaurant id
 | Scenario            | Given invalid restaurant id                                                                                                  |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order                                              |
 | Test Data          | json <br> { <br>   "consumerId": 1, <br>   "deliveryAddress": { <br>     "city": "Cimahi", <br>     "state": "Indonesia", <br>     "street1": "jln Cihanjuang Blok A", <br>     "street2": "jln Cihanjuang Blok B", <br>     "zip": "55578" <br>   }, <br>   "deliveryTime": "2024-04-05T12:30:09.913Z", <br>   "lineItems": [<br>     {<br>       "menuItemId": "F02",<br>       "quantity": 3<br>     }<br>   ],<br>   "restaurantId": 3 <br> }  |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html <br> Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out. <br> Tuliskan JSON di Test Data untuk membuat pesanan. <br> Klik tombol "Execute" untuk mengirimkan request ke server. |
 | Expected Result    | Proses untuk membuat pesanan gagal. Sistem akan memberikan pesan error yang menunjukkan bahwa restaurant id yang diberikan tidak ditemukan. Kemudian tidak ada pesanan yang dibuat dan disimpan. |
@@ -105,7 +105,7 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-004 : Given invalid menuItem ID
 | Scenario            | Given invalid menuItem ID                                                                                                   |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order                                              |
 | Test Data          | json <br> { <br>   "consumerId": 1, <br>   "deliveryAddress": { <br>     "city": "Cimahi", <br>     "state": "Indonesia", <br>     "street1": "jln Cihanjuang Blok A", <br>     "street2": "jln Cihanjuang Blok B", <br>     "zip": "55578" <br>   }, <br>   "deliveryTime": "2024-04-05T12:30:09.913Z", <br>   "lineItems": [<br>     {<br>       "menuItemId": "F05",<br>       "quantity": 1<br>     }<br>   ],<br>   "restaurantId": 1 <br> }  |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html <br> Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out. <br> Tuliskan JSON di Test Data untuk membuat pesanan. <br> Klik tombol "Execute" untuk mengirimkan request ke server. |
 | Expected Result    | Sistem memberikan pesan error yang menunjukkan bahwa menuItem ID yang diberikan invalid atau not found. Pesanan gagal dibuat dan tidak tersimpan ke dalam sistem. |
@@ -117,11 +117,11 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-005 : Order data with incomplete fields
 | Scenario            | Order data with incomplete fields                                                                                         |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order                                              |
 | Test Data          | json <br> { <br>   "consumerId": 1, <br>   "deliveryAddress": { <br>     "city": "Bandung", <br>     "state": "Indonesia", <br>     "zip": "23345" <br>   }, <br>   "deliveryTime": "2024-04-05T15:52:36.893Z", <br>   "lineItems": [<br>     {<br>       "menuItemId": "F01"<br>     }<br>   ],<br>   "restaurantId": 1 <br> }  |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html <br> Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out. <br> Tuliskan JSON di Test Data untuk membuat pesanan. <br> Klik tombol "Execute" untuk mengirimkan request ke server. |
-| Expected Result    |                                                                                                                                 |
-| Actual Result      |                                                                                                                                 |
+| Expected Result    |Order tidak terbuat dan menampilkan pesan kesalahan “Data must be filled in completely”                                          |
+| Actual Result      |Order terbuat dengan menampilkan:                                                                                                |
 | Response body      | json <br> { <br>   "orderId": 7 <br> }  |
 | Response headers   | connection: keep-alive <br> content-type: application/json <br> date: Fri05 Apr 2024 13:00:03 GMT <br> keep-alive: timeout=60 <br> transfer-encoding: chunked <br> zipkin-trace-id: c9824df38d57bc32 |
 | Test Result        | FAIL |
@@ -130,7 +130,7 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-006 : Change the order data with the order Id and menu Id in the database
 | Scenario            | Given valid order ID and valid menuItem ID                                                                                   |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order                                              |
 | Test Data          | orderId : 2<br>{<br>  "revisedOrderLineItems": [<br>    {<br>      "menuItemId": "F02",<br>      "quantity": 5<br>    }<br>  ]<br>} |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
 | Expected Result    | Pesanan berhasil diperbaharui, menampilkan status bahwa pembaruan pesanan APPROVED dan menampilkan total harga yang sesuai (harga pada menu item id x jumlah quantity) |
@@ -142,7 +142,7 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-007 :  Changing order menu data whose menu ID does not exist in the database
 | Scenario            | Changing order menu data whose menu ID does not exist in the database                                                   |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order                                              |
 | Test Data          | orderId : 2<br>{<br>  "revisedOrderLineItems": [<br>    {<br>      "menuItemId": "F05",<br>      "quantity": 1<br>    }<br>  ]<br>} |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
 | Expected Result    | Pesanan gagal diperbaharui dan menunjukkan pesan error bahwa menu item Id invalid atau not found.                           |
@@ -154,7 +154,7 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-008 :  Changing order data with the order ID not existing in the database
 | Scenario            | Changing order data with the order ID not existing in the database                                                     |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order                                              |
 | Test Data          | orderId : 9<br>{<br>  "revisedOrderLineItems": [<br>    {<br>      "menuItemId": "F01",<br>      "quantity": 2<br>    }<br>  ]<br>} |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
 | Expected Result    | Proses perubahan order gagal.                                                                                                |
@@ -165,7 +165,7 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-009 : Cancellation of an order with the order ID in the database
 | Scenario            | Cancellation of an order with the order ID in the database                                                               |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order                                              |
 | Test Data          | orderId : 2                                                                                                                  |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST/orders/{orderId}/cancel, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
 | Expected Result    | Proses pembatalan pemesanan berhasil, dengan status berubah menjadi “CANCELLED”                                              |
@@ -175,7 +175,7 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 #### Scenario-0010 : Cancellation of an order with the order ID not in the database
 | Scenario            | Cancellation of an order with the order ID not in the database                                                           |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------|
-| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Preconditions      | Aplikasi FTGO sudah dijalankan <br> Buat JSON pada Test Data untuk membuat order                                              |
 | Test Data          | orderId : 9                                                                                                                   |
 | Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST/orders/{orderId}/cancel, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
 | Expected Result    | Proses pembatalan pemesanan gagal, dan sistem menampilkan pesan error bahwa order ID invalid atau not found.                  |
