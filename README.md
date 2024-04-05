@@ -42,5 +42,8 @@ Repositori ini merupakan skenario pengujian dan pengujian yang dilakukan pada ap
 ### Preconditions
 Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terlebih dahulu, kelompok kami membuat data consumer dan data restaurant sebagai berikut : 
  #### Membuat Data Customer
-                        |
+| End Point | POST /consumers create | 
+| ---- | ------ | 
+| Value | {<br>"name": {<br> "firstName": "Rikeu",<br> "lastName": "Wilson"<br> }<br> }| 
+
 
