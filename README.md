@@ -4,28 +4,22 @@ Repositori ini merupakan skenario pengujian dan pengujian yang dilakukan pada ap
 
 ## Authors
 
-- Annisa Dinda Gantini | 211524003
-- Berliana Elfada | 211524004
-- Cintia Ningsih | 211524005
-- Suci Awalia Gardara | 211524027
-- Yane Pradita | 211524029
+- 211524003 | Annisa Dinda Gantini 
+- 211524004 | Berliana Elfada
+- 211524005 | Cintia Ningsih
+- 211524027 | Suci Awalia Gardara
+- 211524029 | Yane Pradita
 
 ## Test Scenario
-#### Create Order
-- Pengujian kemampuan sistem untuk melakukan penambahan pada order yang sudah dibuat
-  - Memastikan order berhasil dibuat dan ditambahkan ke sistem
-#### Revise Order
-- Pengujian kemampuan sistem untuk melakukan perubahan pada order yang sudah dibuat
-  - Memastikan perubahan order berhasil disimpan.
-    - Memastikan detail order yang ditampilkan sesuai dengan perubahan yang dilakukan oleh pengguna.
-#### Cancel Order
-- Pengujian kemampuan sistem untuk membatalkan order yang sudah dibuat
-  - Memastikan order berhasil dibatalkan dan dihapus dari sistem
 
-### Endpoint 
+#### Endpoint 
     1. Penambahan Order: POST/orders
     2. Perubahan Order: POST/orders/{orderId}/revise
     3. Pembatalan Order: POST/orders/{orderId}/cancel
+
+#### Create Order
+- Pengujian kemampuan sistem untuk melakukan penambahan pada order yang sudah dibuat
+  - Memastikan order berhasil dibuat dan ditambahkan ke sistem
 
 | Feature       | Create Order                                                   |
 |---------------|----------------------------------------------------------------|
@@ -36,6 +30,11 @@ Repositori ini merupakan skenario pengujian dan pengujian yang dilakukan pada ap
 |               | 4. Given invalid menuItem id                                  |
 |               | 5. Order data with incomplete fields                          |
 
+#### Revise Order
+- Pengujian kemampuan sistem untuk melakukan perubahan pada order yang sudah dibuat
+  - Memastikan perubahan order berhasil disimpan.
+    - Memastikan detail order yang ditampilkan sesuai dengan perubahan yang dilakukan oleh pengguna.
+
 | Feature       | Revise Order                                                   |
 |---------------|----------------------------------------------------------------|
 | Requirements  | As a consumer of the Order Service, I should be able to revise an order |
@@ -43,6 +42,10 @@ Repositori ini merupakan skenario pengujian dan pengujian yang dilakukan pada ap
 |               | 2. Change the order menu data whose menu ID is in the database |
 |               | 3. Changing order menu data whose menu ID does not exist in the database |
 |               | 4. Changing order data with the order ID not existing in the database |
+
+#### Cancel Order
+- Pengujian kemampuan sistem untuk membatalkan order yang sudah dibuat
+  - Memastikan order berhasil dibatalkan dan dihapus dari sistem
 
 | Feature       | Cancel Order                                                   |
 |---------------|----------------------------------------------------------------|
