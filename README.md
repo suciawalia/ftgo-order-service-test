@@ -11,6 +11,17 @@ Repositori ini merupakan skenario pengujian dan pengujian yang dilakukan pada ap
 - Yane Pradita | 211524029
 
 ## Test Scenario
+#### Create Order
+- Pengujian kemampuan sistem untuk melakukan penambahan pada order yang sudah dibuat
+  - Memastikan order berhasil dibuat dan ditambahkan ke sistem
+#### Revise Order
+- Pengujian kemampuan sistem untuk melakukan perubahan pada order yang sudah dibuat
+  - Memastikan perubahan order berhasil disimpan.
+    - Memastikan detail order yang ditampilkan sesuai dengan perubahan yang dilakukan oleh pengguna.
+#### Cancel Order
+- Pengujian kemampuan sistem untuk membatalkan order yang sudah dibuat
+  - Memastikan order berhasil dibatalkan dan dihapus dari sistem
+
 ### Endpoint 
     1. Penambahan Order: POST/orders
     2. Perubahan Order: POST/orders/{orderId}/revise
@@ -45,5 +56,8 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 | End Point | POST /consumers create | 
 | ---- | ------ | 
 | Value | {<br>"name": {<br> "firstName": "Rikeu",<br> "lastName": "Wilson"<br> }<br> }| 
-
+ #### Membuat Data Customer
+| End Point            | POST /restaurants create |
+|----------------------|---------------------------|
+| **Value**            | {<br> "address": {<br> "city": "Bandung",<br> "state": "Jawa Barat",<br> "street1": "Jln Braga",<br> "street2": "Jln Siliwangi",<br> "zip": "40111"<br> },<br> "menu": {<br> "menuItems": [<br> {<br> "id": "F01",<br> "name": "Chicken Katsu",<br> "price": "10.99"<br> },<br> {<br> "id": "F02",<br> "name": "Chicken Curry",<br> "price": "12.99"<br> }<br> ]<br> },<br> "name": "The Little Katsu"<br> } |
 
