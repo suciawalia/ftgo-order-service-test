@@ -122,3 +122,59 @@ Sebelum membuat pesanan harus menambahkan data consumer dan data restaurant terl
 | Response body      | json <br> { <br>   "orderId": 7 <br> }  |
 | Response headers   | connection: keep-alive <br> content-type: application/json <br> date: Fri05 Apr 2024 13:00:03 GMT <br> keep-alive: timeout=60 <br> transfer-encoding: chunked <br> zipkin-trace-id: c9824df38d57bc32 |
 | Test Result        | FAIL |
+
+### Revise Order
+#### Scenario-006 : Change the order data with the order Id and menu Id in the database
+| Scenario            | Given valid order ID and valid menuItem ID                                                                                   |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------|
+| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Test Data          | orderId : 2<br>{<br>  "revisedOrderLineItems": [<br>    {<br>      "menuItemId": "F02",<br>      "quantity": 5<br>    }<br>  ]<br>} |
+| Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
+| Expected Result    | Pesanan berhasil diperbaharui, menampilkan status bahwa pembaruan pesanan APPROVED dan menampilkan total harga yang sesuai (harga pada menu item id x jumlah quantity) |
+| Actual Result      | Pada actual result pesanan dengan orderId 2 memang berhasil diperbaharui, terdapat status yang ditampilkan bahwa status pesanan APPROVED. Namun, total harga yang terdapat pada actual result tidak sesuai. Karena, harga menu item pada id F02 adalah 12.99 dan jumlah quantity nya adalah 5, seharusnya total harga keseluruhan adalah 64.95 |
+| Response body      | {<br>  "orderId": 2,<br>  "state": "APPROVED",<br>  "orderTotal": "10.99"<br>} |
+| Response headers   | connection: keep-alive<br>content-type: application/json<br>date: Fri05 Apr 2024 13:02:14 GMT<br>keep-alive: timeout=60<br>transfer-encoding: chunked<br>zipkin-trace-id: 28b7cd242ec90266 |
+| Test Result        | FAIL |
+
+#### Scenario-007 :  Changing order menu data whose menu ID does not exist in the database
+| Scenario            | Changing order menu data whose menu ID does not exist in the database                                                   |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------|
+| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Test Data          | orderId : 2<br>{<br>  "revisedOrderLineItems": [<br>    {<br>      "menuItemId": "F05",<br>      "quantity": 1<br>    }<br>  ]<br>} |
+| Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
+| Expected Result    | Pesanan gagal diperbaharui dan menunjukkan pesan error bahwa menu item Id invalid atau not found.                           |
+| Actual Result      | Actual result menunjukkan bahwa pesanan berhasil diperbaharui. Seharusnya, jika menuItemId tidak terdapat di dalam database maka pesanan tidak akan bisa diperbaharui. |
+| Response body      | {<br>  "orderId": 2,<br>  "state": "APPROVED",<br>  "orderTotal": "10.99"<br>} |
+| Response headers   | connection: keep-alive<br>content-type: application/json<br>date: Fri05 Apr 2024 13:44:21 GMT<br>keep-alive: timeout=60<br>transfer-encoding: chunked<br>zipkin-trace-id: c67c25d84de5f6a0 |
+| Test Result        | FAIL |
+
+#### Scenario-008 :  Changing order data with the order ID not existing in the database
+| Scenario            | Changing order data with the order ID not existing in the database                                                     |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------|
+| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Test Data          | orderId : 9<br>{<br>  "revisedOrderLineItems": [<br>    {<br>      "menuItemId": "F01",<br>      "quantity": 2<br>    }<br>  ]<br>} |
+| Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST / orders, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
+| Expected Result    | Proses perubahan order gagal.                                                                                                |
+| Actual Result      | Response headers:<br>connection: keep-alive<br>content-length: 0<br>date: Fri05 Apr 2024 13:45:59 GMT<br>keep-alive: timeout=60<br>zipkin-trace-id: eaba01f873657961 |
+| Test Result        | PASS |
+
+### Cancel Order
+#### Scenario-009 : Cancellation of an order with the order ID in the database
+| Scenario            | Cancellation of an order with the order ID in the database                                                               |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------|
+| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Test Data          | orderId : 2                                                                                                                  |
+| Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST/orders/{orderId}/cancel, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
+| Expected Result    | Proses pembatalan pemesanan berhasil, dengan status berubah menjadi “CANCELLED”                                              |
+| Actual Result      | Actual result menunjukkan respon ketika pesanan berhasil diperbaharui, bukan menunjukkan respon ketika pesanan berhasil dibatalkan.<br><br> **Response body**<br> {<br>  "orderId": 2,<br>  "state": "APPROVED",<br>  "orderTotal": "10.99"<br> }<br><br> **Response headers**<br>  connection: keep-alive<br>content-type: application/json<br>date: Fri05 Apr 2024 14:49:27 GMT<br>keep-alive: timeout=60<br>transfer-encoding: chunked<br>zipkin-trace-id: db0732b4fcfab478 |
+| Test Result        | FAIL                                                                                                                         |
+
+#### Scenario-0010 : Cancellation of an order with the order ID not in the database
+| Scenario            | Cancellation of an order with the order ID not in the database                                                           |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------|
+| Preconditions      | Aplikasi FTGO sudah dijalankan                                                                                                |
+| Test Data          | orderId : 9                                                                                                                   |
+| Step To Execute    | Membuka swagger UI pada localhost:8082/orders/index.html<br>Cari bagian di mana input JSON request body di bagian POST/orders/{orderId}/cancel, lalu klik Try it Out.<br>Tuliskan JSON di Test Data untuk membuat pesanan.<br>Klik tombol "Execute" untuk mengirimkan request ke server. |
+| Expected Result    | Proses pembatalan pemesanan gagal, dan sistem menampilkan pesan error bahwa order ID invalid atau not found.                  |
+| Actual Result      | Actual result menunjukkan bahwa<br><br>  **Response headers**<br> connection: keep-alive<br> content-length: 0<br> date: Fri05 Apr 2024 14:50:44 GMT<br> keep-alive: timeout=60<br> zipkin-trace-id: 4e0e9d5b5cc6e82b |
+| Test Result        | PASS                                                                                                                         |
